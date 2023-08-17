@@ -16,9 +16,17 @@ class Solution{
     int kthSmallest(int arr[], int l, int r, int k) {
         int n = r-l+1;
 
-        sort(arr+l, arr+n);
+        priority_queue<int>pq;
         
-        return arr[l+k-1];
+        for(int i=0; i<n; i++){
+            int element = arr[i];
+            pq.push(element);
+            
+            if(pq.size() > k)
+                pq.pop();
+        }
+        
+        return pq.top();
     }
 };
 
