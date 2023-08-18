@@ -8,14 +8,19 @@ class Solution{
     public:
     string removeConsecutiveCharacter(string S){
         int n = S.size();
+        int i=1, j=1;
         
-        string ans;
-        for(int i=0; i<n; i++){
-            if(i==0 || S[i]!=S[i-1])
-                ans.push_back(S[i]);
+        while(i<n && j<n){
+            if(S[j] == S[j-1])
+                j++;
+            else{
+                S[i] = S[j];
+                i++;
+                j++;
+            }
         }
         
-        return ans;
+        return S.substr(0, i);
     }
 };
 
