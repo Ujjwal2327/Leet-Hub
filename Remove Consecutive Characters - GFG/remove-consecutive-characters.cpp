@@ -6,25 +6,16 @@ using namespace std;
 // } Driver Code Ends
 class Solution{
     public:
-    string removeConsecutiveCharacter(string S)
-    {
-        // code here.
+    string removeConsecutiveCharacter(string S){
+        int n = S.size();
         
-        int i = 0;
-        
-        while(i<S.size()){
-            if(i==0){
-                i++;
-                continue;
-            }
-            
-            if(S[i]==S[i-1])
-                S.erase(i,1);
-            else
-                i++;
+        string ans;
+        for(int i=0; i<n; i++){
+            if(i==0 || S[i]!=S[i-1])
+                ans.push_back(S[i]);
         }
         
-        return S;
+        return ans;
     }
 };
 
