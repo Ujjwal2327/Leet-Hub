@@ -11,27 +11,26 @@ class Solution
     //be performed by a single person.
     int activitySelection(vector<int> start, vector<int> end, int n)
     {
-        vector<pair<int,int>>vis(n);
-        
-        for(int i=0; i<n; i++){
-            vis[i] = {end[i], start[i]};
+    
+    
+        int totalSize = start.size();
+    
+        vector<pair<int,int>>activities(totalSize,{0,0});
+    
+        for(int index=0; index < totalSize; index++){
+            activities[index] = {end[index],start[index]};
         }
-        
-        sort(vis.begin(),vis.end());
-        
+        sort(activities.begin(),activities.end());
+    
         int ans = 0;
-        int i=0;
-        while(i<n){
+        int index = 0;
+        while(index < totalSize){
             ans++;
-            int s = vis[i].second;
-            int e = vis[i].first;
-            
-            int j = i+1;
-            while(j<n && vis[j].second<=e)
-                j++;
-            if(j==n)
-                break;
-            i = j;
+            int currStart = activities[index].second;
+            int currEnd = activities[index].first;
+            index++;
+            while(index < totalSize && activities[index].second <= currEnd)
+                index++;
         }
         
         return ans;
