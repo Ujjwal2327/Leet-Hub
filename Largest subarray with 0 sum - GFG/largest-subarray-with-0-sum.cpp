@@ -14,30 +14,24 @@ class Solution{
     {   
         // Your code here
         
-        vector<int>prefixSum(n+1,0);
-        prefixSum[0] = 0;
+        int prefixSum = 0;
+        unordered_map<int,int>firstPSOcc;
+        int ans = 0;
         
-        for(int i=1; i<=n; i++){
-            prefixSum[i] = prefixSum[i-1] + A[i-1];
-        }
-        
-        map<int,int>startOcc;
-        
-        int maxi = 0;
-        int endIdx = -1;
-        
-        for(int i=0; i<=n; i++){
-            if(startOcc.find(prefixSum[i]) != startOcc.end()){
-                maxi = max( maxi , i-startOcc[prefixSum[i]]+1 );
-                endIdx = i-1;
+        for(int i=0; i<n; i++){
+            prefixSum += A[i];
+            if(prefixSum == 0)
+                ans = max(ans,i+1);
+                
+            if(firstPSOcc.find(prefixSum) == firstPSOcc.end()){
+                firstPSOcc[prefixSum] = i;
             }
-            else
-                startOcc[prefixSum[i]] = i;
+            else{
+                ans = max(ans,i-firstPSOcc[prefixSum]);
+            }
         }
-
-        if(maxi==0)
-            return 0;
-        return maxi - 1;
+        
+        return ans;
     }
 };
 
