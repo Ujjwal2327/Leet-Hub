@@ -12,7 +12,7 @@ class Solution{
         // code here
         
         int prefixSum = 0;
-        map<int,int>freq;
+        unordered_map<int,int>freq;
         int ans = 0;
         
         for(int i=0; i<n; i++){
