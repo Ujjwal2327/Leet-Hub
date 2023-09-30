@@ -11,23 +11,23 @@ public:
         //Write your code here
         int n = str.size();
         
-        int cnt0 = 0, cnt1 = 0;
+        int cnt = 0;
         int ans = 0;
         
         for(int i=0; i<n; i++){
             if(str[i]=='0'){
-                cnt0++;
+                cnt--;
             }
             else{
-                cnt1++;
+                cnt++;
             }
             
-            if(cnt0==cnt1){
+            if(cnt==0){
                 ans++;
             }
         }
         
-        return cnt0==cnt1 ? ans : -1;
+        return cnt==0 ? ans : -1;
     }
 };
 
