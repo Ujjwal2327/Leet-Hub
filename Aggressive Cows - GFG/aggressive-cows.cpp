@@ -13,7 +13,6 @@ class Solution {
         int i = 0;
         int cnt = 0;
         
-        
         while(i<n){
             cnt++;
             
@@ -39,8 +38,7 @@ public:
         
         sort(stalls.begin(),stalls.end());
 
-        
-        long long s = 0, e = stalls[n-1], ans = 0;
+        long long s = 0, e = stalls[n-1]-stalls[0], ans = 0;
         
         while(s<=e){
             long long mid = s + (e-s) / 2;
