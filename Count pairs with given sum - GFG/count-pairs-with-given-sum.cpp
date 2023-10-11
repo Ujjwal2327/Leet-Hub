@@ -12,22 +12,16 @@ public:
     int getPairsCount(int arr[], int n, int k) {
         // code here
         
-        map<int,int>hash;
-        for(int i=0; i<n; i++)
-            hash[arr[i]]++;
-            
+        unordered_map<int,int>freq;
         int ans = 0;
-        for(auto &p : hash){
-            int num1 = p.first;
-            int freq1 = p.second;
-            int num2 = k - num1;
-            int freq2 = hash[num2];
+        
+        for(int i=0; i<n; i++){
             
-            if(num1==num2)
-                ans += (freq1)*(freq1-1) / 2;
-            else
-                ans += freq1*freq2;
-            hash[num1] = 0;
+            if(freq.find(k-arr[i]) != freq.end()){
+                ans += freq[k-arr[i]];
+            }
+            freq[arr[i]]++;
+            
         }
         
         return ans;
