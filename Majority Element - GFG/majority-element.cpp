@@ -18,46 +18,28 @@ class Solution{
         
         // your code here
         
-        int cnt1=0, cnt2=0;
-        int num1=-1, num2=-1;
-        int ans = -1;
-        
-        for(int i=0; i<n; i++){
-            if(arr[i]==num1){
-                cnt1++;
-            }
-            else if(arr[i]==num2){
-                cnt2++;
-            }
-            else{
-                if(cnt1==0){
-                    num1 = arr[i];
-                    cnt1 = 1;
-                }
-                else if(cnt2==0){
-                    num2 = arr[i];
-                    cnt2 = 1;
-                }
-                else{
-                    if(cnt1>cnt2)
-                        cnt1 = max(0,cnt1-1);
-                    else
-                        cnt2 = max(0,cnt2-1);
+        int cnt = 0;
+        int maj=-1;
 
-                    if(cnt1==0){
-                        num1 = -1;
-                    }
-                    if(cnt2==0){
-                        num2 = -1;
-                    }
-                }
+        for(int i=0; i<n; i++){
+            if(cnt==0){
+                cnt++;
+                maj = arr[i];
             }
+            else if(maj==arr[i])
+                cnt++;
+            else
+                cnt--;
         }
         
-        if(cnt1>n/2)
-            return num1;
-        else if(cnt2>n/2)
-            return num2;
+        cnt = 0;
+        for(int i=0; i<n; i++){
+            if(arr[i]==maj)
+                cnt++;
+        }
+        
+        if(cnt>n/2)
+            return maj;
         return -1;
     }
 };
