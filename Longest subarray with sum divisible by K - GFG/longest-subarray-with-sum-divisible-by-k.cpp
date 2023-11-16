@@ -11,25 +11,14 @@ public:
 	{
 	    // Complete the function
 	    // ps means prefix sum
-	    unordered_map<int,int>firstOcc;
-	    int pSMod = 0;
+	    unordered_map<long long,int>firstOcc;
+	    long long pSMod = 0;
 	    int ans = 0;
 	    
 	    for(int i=0; i<n; i++){
 	        arr[i] = (arr[i]%k + k)%k ;
-	    }
-	    
-	    
-	   // for(int i=0; i<n; i++){
-	   //     cout << arr[i] << ' ';
-	   // }
-	   // cout << '\n';
-	    
-	    for(int i=0; i<n; i++){
 	        pSMod += arr[i];
-	        
 	        pSMod = pSMod % k;
-	       // cout << pSMod << ' ';
 
 	        if(pSMod==0)
 	            ans = i+1;
