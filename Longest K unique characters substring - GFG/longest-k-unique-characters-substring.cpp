@@ -13,26 +13,20 @@ class Solution{
     // your code here
         int n = s.size();
         
-        int i=0, j=0;
-        
         unordered_map<char,int>freq;
-        int ans = 0;
+        int i=0, j=0, ans = 0;
         
         while(j<n){
             
             freq[s[j]]++;
-            if(freq.size()<k){
-                j++;
-                continue;
-            }
             while(freq.size()>k){
                 freq[s[i]]--;
                 if(freq[s[i]]==0)
                     freq.erase(s[i]);
                 i++;
             }
-            
-            ans = max(ans,j-i+1);
+            if(freq.size()==k)
+                ans = max(ans,j-i+1);
             j++;
         }
         return ans==0 ? -1 : ans;
