@@ -28,7 +28,7 @@ public:
         }
         
         int j = lower_bound(arr.begin()+i+1, arr.end(), arr[i], greater<int>()) - arr.begin()-1;
-        // lower_bound first element from right <= val
+        // lower_bound first element from left <= val
         
         swap(arr[i],arr[j]);
         
