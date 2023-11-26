@@ -27,12 +27,8 @@ public:
             return arr;
         }
         
-        int j=n-1;
-        while(j>i){
-            if(arr[j]>arr[i])
-                break;
-            j--;
-        }
+        int j = lower_bound(arr.begin()+i+1, arr.end(), arr[i], greater<int>()) - arr.begin()-1;
+        // lower_bound first element from right <= val
         
         swap(arr[i],arr[j]);
         
@@ -41,6 +37,7 @@ public:
         return arr;
     }
 };
+
 
 //{ Driver Code Starts.
 
