@@ -15,19 +15,16 @@ class Solution{
         while(j<n){
             freq[str[j]]++;
             
-            if(freq.size()<k){
-                j++;
-                continue;
-            }
-            
             while(freq[str[i]]>1){
                 freq[str[i]]--;
                 i++;
             }
-            ans = min(ans,j-i+1);
-            // cout << ans << ' ' << j << ' ' << i << '\n';
+            
+            if(freq.size()==k)
+                ans = min(ans,j-i+1);
             j++;
         }
+        
         return ans;
     }
     
@@ -38,8 +35,8 @@ class Solution{
         unordered_map<char,bool>vis;
         int n = str.size();
         
-        for(int i=0; i<n; i++){
-            vis[str[i]] = true;
+        for(auto ch : str){
+            vis[ch] = true;
         }
         
         int k = vis.size();
