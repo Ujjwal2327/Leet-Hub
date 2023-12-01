@@ -8,7 +8,7 @@ using namespace std;
 // User function Template for C++
 
 class Solution {
-    bool isValid(int n, int k, vector<int> &nums, long long maxi){
+    bool isValid(int n, int k, vector<int> &nums, long long mini){
         
         int i = 0;
         int cnt = 0;
@@ -16,18 +16,14 @@ class Solution {
         while(i<n){
             cnt++;
             
-            if(cnt == k)
-                return true;
-            
             int j = i+1;
-            while(j<n && nums[j]-nums[i] < maxi){
+            while(j<n && nums[j]-nums[i] < mini)
                 j++;
-            }
             
             i = j;
         }
         
-        return false;
+        return cnt>=k;
     }
     
 public:
