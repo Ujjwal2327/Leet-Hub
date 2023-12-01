@@ -10,54 +10,42 @@ using namespace std;
 
 class Solution{   
 public:
-    pair<int,int> solve(vector<vector<int>> &matrix, int r, int c, int target){
+    int isValid(vector<vector<int>> &matrix, int rows, int cols, int target, int medianPos){
         
-        int firstCnt = 0;
-        int lastCnt = 0;
-        
-        for(int i=0; i<r; i++){
-            int first = lower_bound(matrix[i].begin(), matrix[i].end(), target)-matrix[i].begin();
-            int last = upper_bound(matrix[i].begin(), matrix[i].end(), target)-matrix[i].begin();
-        
-            firstCnt += first;
-            lastCnt += last;
+        int cnt = 0;
+        for(auto v : matrix){
+            int ub = upper_bound(v.begin(), v.end(), target) - v.begin();
+            cnt += ub;
         }
         
-        return {firstCnt,lastCnt};
+        return (cnt >= medianPos);
     }
 
-    int median(vector<vector<int>> &matrix, int r, int c){
-        // code here
+    int median(vector<vector<int>> &matrix, int rows, int cols){
+        // code here          
         
-        int s = INT_MAX;
-        int e = INT_MIN;
+        int s = INT_MAX, e = INT_MIN;
+        int medianPos = (rows*cols)/2 + 1;
+        int ans = e;
         
-        for(int i=0; i<r; i++){
+        for(int i=0; i<rows; i++){
             s = min(s,matrix[i][0]);
-            e = max(e,matrix[i][c-1]);
+            e = max(e,matrix[i][cols-1]);
         }
         
-        int cnt = r*c;
-        int medianCnt = (cnt+1)/2;
         
         while(s<=e){
-            int mid = s + (e-s)/2;
+            int mid = s + (e-s) / 2;
             
-            pair<int,int>p = solve(matrix,r,c,mid);
-            
-            // cout << mid << ' ' << p.first << ' ' << p.second << '\n';
-            
-            if(medianCnt > p.first && medianCnt <= p.second){
-                return mid;
+            if(isValid(matrix,rows,cols,mid,medianPos)){
+                ans = mid;
+                e = mid-1;
             }
-            else if(medianCnt <= p.first){
-                e = mid - 1;
-            }
-            else{
-                s = mid + 1;
-            }
+            else
+                s = mid+1;
         }
-        return -1;
+        
+        return ans;
     }
 };
 
