@@ -1,5 +1,5 @@
 # Median in a row-wise sorted Matrix
-## Medium
+## Hard
 <div class="problems_problem_content__Xm_eO"><p><span style="font-size:18px">Given a row wise sorted matrix of size <strong>R*C</strong>&nbsp;where R&nbsp;and C&nbsp;are always <strong>odd</strong>,&nbsp;find the median of the matrix.</span></p>
 
 <p><span style="font-size:18px"><strong>Example 1:</strong></span></p>
