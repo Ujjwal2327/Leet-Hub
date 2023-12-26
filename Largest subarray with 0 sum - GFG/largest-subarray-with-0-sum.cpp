@@ -13,24 +13,24 @@ class Solution{
     int maxLen(vector<int>&A, int n)
     {   
         // Your code here
-        
-        int prefixSum = 0;
-        unordered_map<int,int>firstPSOcc;
+    
+        unordered_map<int,int>firstOcc;     // {ps,firstOcc}
+        long long sum = 0;
         int ans = 0;
         
         for(int i=0; i<n; i++){
-            prefixSum += A[i];
-            if(prefixSum == 0)
-                ans = max(ans,i+1);
-                
-            if(firstPSOcc.find(prefixSum) == firstPSOcc.end()){
-                firstPSOcc[prefixSum] = i;
-            }
-            else{
-                ans = max(ans,i-firstPSOcc[prefixSum]);
-            }
-        }
-        
+            sum += A[i];
+            if(sum==0)
+                ans=i+1;
+            
+            long long remainSum = sum;
+            if(firstOcc.find(remainSum) != firstOcc.end())
+                ans = max(ans,i-firstOcc[remainSum]);
+            
+            if(firstOcc.find(sum) == firstOcc.end())
+                firstOcc[sum] = i;
+        }    
+    
         return ans;
     }
 };
