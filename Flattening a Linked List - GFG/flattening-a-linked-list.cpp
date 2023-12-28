@@ -139,7 +139,7 @@ Node *flatten(Node *root)
 
         if(mini->bottom)
             store.insert(mini->bottom);
-        // curr->bottom = NULL;
+        curr->bottom = NULL;
     }
    
     return dummy->bottom;
