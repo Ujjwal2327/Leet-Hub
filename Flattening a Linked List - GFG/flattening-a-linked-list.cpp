@@ -109,11 +109,31 @@ struct Node{
 };
 */
 
-struct customComparator{
-    bool operator()(Node *a, Node *b) const {
-        return a->data < b->data;
+Node *merge2SortedLinkedList(Node *head1, Node *head2){
+    
+    Node *dummy = new Node(-1);
+    Node *curr = dummy;
+    while(head1 && head2){
+        if(head1->data<=head2->data){
+            curr->bottom = head1;
+            curr = curr->bottom;
+            head1 = head1->bottom;
+            curr->bottom = NULL;
+        }
+        else{
+            curr->bottom = head2;
+            curr = curr->bottom;
+            head2 = head2->bottom;
+            curr->bottom = NULL;
+        }
     }
-};
+    if(head1)
+        curr->bottom = head1;
+    if(head2)
+        curr->bottom = head2;
+    
+    return dummy->bottom;
+}
 
 /*  Function which returns the  root of 
     the flattened linked list. */
@@ -121,27 +141,20 @@ Node *flatten(Node *root)
 {
    // Your code here
    
-    multiset<Node *, customComparator>store;
-    Node *curr = root;
-    while(curr){
-        store.insert(curr);
-        curr = curr->next;
-    }
+    if(root==NULL || root->next==NULL)
+        return root;
 
-    Node *dummy = new Node(-1);
-    curr = dummy;
+    Node *curr = root;
+    while(curr && curr->next){
+        Node *currNext = curr->next;
+        Node *currNextNext = curr->next->next;
         
-    while(!store.empty()){
-        Node *mini = *store.begin();
-        curr->bottom = mini;
-        curr = curr->bottom;
-        store.erase(store.begin());
-        
-        if(mini->bottom)
-            store.insert(mini->bottom);
-        curr->bottom = NULL;
+        curr->next = NULL;
+        currNext->next = NULL;
+        curr = merge2SortedLinkedList(curr,currNext);
+        curr->next = currNextNext;
     }
-   
-    return dummy->bottom;
+    
+    return curr;
 }
 
