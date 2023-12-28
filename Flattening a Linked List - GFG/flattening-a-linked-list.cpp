@@ -136,7 +136,7 @@ Node *flatten(Node *root)
         curr->bottom = mini;
         curr = curr->bottom;
         store.erase(store.begin());
-
+        
         if(mini->bottom)
             store.insert(mini->bottom);
         curr->bottom = NULL;
