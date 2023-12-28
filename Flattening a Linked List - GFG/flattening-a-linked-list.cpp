@@ -109,13 +109,19 @@ struct Node{
 };
 */
 
+struct customComparator{
+    bool operator()(Node *a, Node *b) const {
+        return a->data < b->data;
+    }
+};
+
 /*  Function which returns the  root of 
     the flattened linked list. */
 Node *flatten(Node *root)
 {
    // Your code here
    
-    unordered_set<Node *>store;
+    multiset<Node *, customComparator>store;
     Node *curr = root;
     while(curr){
         store.insert(curr);
@@ -125,19 +131,11 @@ Node *flatten(Node *root)
     Node *dummy = new Node(-1);
     curr = dummy;
         
-    while(true){
-        Node *mini = NULL;
-        
-        for(auto node : store){
-            if(mini==NULL || mini->data>node->data)
-                mini = node;
-        }
-        
-        if(mini==NULL)
-            break;
+    while(!store.empty()){
+        Node *mini = *store.begin();
         curr->bottom = mini;
         curr = curr->bottom;
-        store.erase(mini);
+        store.erase(store.begin());
         if(mini->bottom)
             store.insert(mini->bottom);
         curr->bottom = NULL;
