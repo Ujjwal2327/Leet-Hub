@@ -3,11 +3,12 @@
 using namespace std;
 
 // } Driver Code Ends
+
 class Solution
 {
-    bool static custom_comparator(vector<int>&a, vector<int>&b){
-        if(a[1]==b[1])
-            return a[0]<b[0];
+    bool static comparator(vector<int>&a, vector<int>&b){
+        // if(a[1]==b[1])
+            // return a[0]<b[0];
         return a[1]<b[1];
     }
     
@@ -23,7 +24,7 @@ class Solution
             time[i][1] = end[i];
         }
         
-        sort(time.begin(),time.end(), custom_comparator);
+        sort(time.begin(),time.end(), comparator);
         
         int ans = 0, lastEnd=-1;
         for(auto v : time){
@@ -32,7 +33,6 @@ class Solution
                 lastEnd = v[1];
             }
         }
-
 
         return ans;
     }
