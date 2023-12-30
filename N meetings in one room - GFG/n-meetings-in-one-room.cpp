@@ -5,10 +5,10 @@ using namespace std;
 // } Driver Code Ends
 class Solution
 {
-    bool static custom_comparator(pair<int,int>a, pair<int,int>b){
-        if(a.second==b.second)
-            return a.first<b.first;
-        return a.second<b.second;
+    bool static custom_comparator(vector<int>&a, vector<int>&b){
+        if(a[1]==b[1])
+            return a[0]<b[0];
+        return a[1]<b[1];
     }
     
     public:
@@ -17,21 +17,22 @@ class Solution
     int maxMeetings(int start[], int end[], int n)
     {
         // Your code here
-        vector<pair<int,int>>time(n);
+        vector<vector<int>>time(n,vector<int>(2));
         for(int i=0; i<n; i++){
-            time[i].first = start[i];
-            time[i].second = end[i];
+            time[i][0] = start[i];
+            time[i][1] = end[i];
         }
         
         sort(time.begin(),time.end(), custom_comparator);
         
         int ans = 0, lastEnd=-1;
-        for(auto p : time){
-            if(p.first>lastEnd){
+        for(auto v : time){
+            if(v[0]>lastEnd){
                 ans++;
-                lastEnd = p.second;
+                lastEnd = v[1];
             }
         }
+
 
         return ans;
     }
