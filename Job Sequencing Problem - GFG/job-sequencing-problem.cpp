@@ -14,6 +14,7 @@ struct Job
 
 
 // } Driver Code Ends
+
 /*
 struct Job 
 { 
@@ -24,9 +25,9 @@ struct Job
 */
 
 bool static comparator(Job a, Job b){
-    if(a.profit!=b.profit)
-        return a.profit>=b.profit;
-    return a.dead>=b.dead;
+    
+    return a.profit>b.profit;
+    
 }
 
 class Solution 
@@ -43,11 +44,13 @@ class Solution
         for(int i=0; i<n; i++)
             maxi = max(maxi,arr[i].dead);
         
+        maxi = min(maxi,n);
+        
         vector<int>ans(2);
         vector<int>slot(maxi+1,-1);
         for(int i=0; i<n; i++){
             Job job = arr[i];
-            int j = job.dead;
+            int j = min(job.dead,n);
             while(j>0 && slot[j]!=-1)
                 j--;
             if(j>0){
@@ -60,6 +63,8 @@ class Solution
         return ans;
     } 
 };
+
+
 
 //{ Driver Code Starts.
 // Driver program to test methods 
