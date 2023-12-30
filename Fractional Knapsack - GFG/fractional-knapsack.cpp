@@ -9,6 +9,7 @@ struct Item{
 
 
 // } Driver Code Ends
+
 //class implemented
 /*
 struct Item{
@@ -37,26 +38,18 @@ class Solution
         int curr=0;
         double ans=0;
         for(int i=0; i<n; i++){
-            double vpw = double(arr[i].value)/arr[i].weight;
+            double valuePerWeight = double(arr[i].value)/arr[i].weight;
             int validWeight = min(W-curr,arr[i].weight);
             
             curr += validWeight;
-            ans += vpw*validWeight;
-            
-            // if(curr+arr[i].weight <= W){
-            //     curr += arr[i].weight;
-            //     ans += arr[i].value;
-            // }
-            // else{
-            //     ans += float(arr[i].value)/arr[i].weight * (W-curr);
-            //     break;
-            // }
+            ans += valuePerWeight*validWeight;
         }
         
         return ans;
     }
         
 };
+
 
 
 //{ Driver Code Starts.
