@@ -37,14 +37,20 @@ class Solution
         int curr=0;
         double ans=0;
         for(int i=0; i<n; i++){
-            if(curr+arr[i].weight <= W){
-                curr += arr[i].weight;
-                ans += arr[i].value;
-            }
-            else{
-                ans += float(arr[i].value)/arr[i].weight * (W-curr);
-                break;
-            }
+            double vpw = double(arr[i].value)/arr[i].weight;
+            int validWeight = min(W-curr,arr[i].weight);
+            
+            curr += validWeight;
+            ans += vpw*validWeight;
+            
+            // if(curr+arr[i].weight <= W){
+            //     curr += arr[i].weight;
+            //     ans += arr[i].value;
+            // }
+            // else{
+            //     ans += float(arr[i].value)/arr[i].weight * (W-curr);
+            //     break;
+            // }
         }
         
         return ans;
