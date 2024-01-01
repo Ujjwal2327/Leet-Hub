@@ -14,7 +14,7 @@ class Solution{
         
         if(i<0 || i>=n || j<0 || j>=n)
             return;
-        if(maze[i][j]==0)
+        if(maze[i][j]==0)   // check even for last cell
             return;
         if(i==n-1 && j==n-1){
             ans.push_back(s);
