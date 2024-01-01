@@ -4,29 +4,28 @@ using namespace std;
 
 
 // } Driver Code Ends
+
 class Solution{
 private:
-    bool solve(int n, int m, vector<vector<int>>& adj, vector<int>& mark, int node){
+    bool isSafe(int n, int node, bool graph[101][101], vector<int>& mark, int c){
         
-        vector<bool>validColor(m+1,true);
-        for(auto neigh : adj[node]){
-            if(mark[neigh])
-                validColor[mark[neigh]] = false;
+        for(int i=0; i<n; i++){
+            if(i!=node && graph[node][i] && mark[i]==c)
+                return false;
         }
         
+        return true;
+    }
+
+    bool solve(int n, int m, bool graph[101][101], vector<int>& mark, int node){
+        
+        if(node==n)
+            return true;
+        
         for(int c=1; c<=m; c++){
-            if(validColor[c]){
+            if(isSafe(n,node,graph,mark,c)){
                 mark[node] = c;
-                bool nextAns = true;
-                for(auto neigh : adj[node]){
-                    if(!mark[neigh]){
-                        if(!solve(n,m,adj,mark,neigh)){
-                            nextAns = false;
-                            break;
-                        }
-                    }
-                }
-                if(nextAns)
+                if(solve(n,m,graph,mark,node+1))
                     return true;
                 mark[node] = 0;
             }
@@ -44,22 +43,10 @@ public:
         vector<vector<int>>adj(n);
         vector<int>mark(n);
         
-        for(int i=0; i<n; i++){
-            for(int j=0; j<n; j++){
-                if(graph[i][j]){
-                    adj[i].push_back(j);
-                }
-            }
-        }
-        
-        for(int i=0; i<n; i++){
-            if(!mark[i] && !solve(n,m,adj,mark,i))
-                return false;
-        }
-        
-        return true;
+        return solve(n,m,graph,mark,0);
     }
 };
+
 
 //{ Driver Code Starts.
 
