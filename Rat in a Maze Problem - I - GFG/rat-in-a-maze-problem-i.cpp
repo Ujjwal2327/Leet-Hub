@@ -9,37 +9,41 @@ using namespace std;
 // User function template for C++
 
 class Solution{
-    public:
-    void solve(vector<vector<int>>& maze, int &n, int r, int c, vector<string>& ans, string& currOutput){
-        if(r<0 || c<0 || r>=n || c>=n || maze[r][c]==0)
-            return;
+    private:
+    void solve(vector<vector<int>>& maze, int n, vector<string>& ans, string& s, int i, int j){
         
-        if(r==n-1 && c==n-1){
-            ans.push_back(currOutput);
+        if(i<0 || i>=n || j<0 || j>=n)
+            return;
+        if(maze[i][j]==0)
+            return;
+        if(i==n-1 && j==n-1){
+            ans.push_back(s);
             return;
         }
         
-        int dr[] = {-1,1,0,0};
-        int dc[] = {0,0,-1,1};
-        char ch[] = {'U','D','L','R'};
         
-        maze[r][c] = 0;
-        for(int i=0; i<4; i++){
-            currOutput += ch[i];
-            solve(maze, n, r+dr[i], c+dc[i], ans, currOutput);
-            currOutput.pop_back();
+        vector<vector<int>>coords = {{i+1,j},{i,j-1},{i,j+1},{i-1,j}};
+        string dir = "DLRU";
+        
+        maze[i][j] = 0;
+        for(int k=0; k<4; k++){
+            s.push_back(dir[k]);
+            solve(maze,n,ans,s,coords[k][0],coords[k][1]);
+            s.pop_back();
         }
-        maze[r][c] = 1;
+        maze[i][j] = 1;
         
     }
     
+    public:
     vector<string> findPath(vector<vector<int>> &maze, int n) {
-        vector<string>ans;
-        string currOutput;
-
-        solve(maze,n,0,0,ans,currOutput);
+        // Your code goes here
         
-        return ans;
+        vector<string>ans;
+        string s;
+        solve(maze,n,ans,s,0,0);
+        
+        return ans.empty() ? vector<string>(1,"-1") : ans;
     }
 };
 
